@@ -21,16 +21,10 @@ Download the weights of the models (if you get any errors, make sure these align
 make download-data
 ```
 
-Run the app:
+Run the app on your windows machine or macbook:
 
 ```bash
 python app/app.py
 ```
 
 And you're done!
-
-
-## Todo
-
-* Integrate TokenWeighter in the RhymeGenerator.
-* Don't block on model loading or rhyme mutations (use API?).
