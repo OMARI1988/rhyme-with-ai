@@ -3,11 +3,22 @@ from typing import List
 
 import numpy as np
 import tensorflow as tf
-from transformers.modeling_tf_bert import TFBertForPreTraining
-from transformers.tokenization_bert import PreTrainedTokenizer
+from transformers import TFBertForPreTraining
+from transformers import PreTrainedTokenizer
 
 from rhyme_with_ai.utils import pairwise
 from rhyme_with_ai.token_weighter import TokenWeighter
+
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
 
 
 class RhymeGenerator:
@@ -15,6 +26,8 @@ class RhymeGenerator:
         self,
         model: TFBertForPreTraining,
         tokenizer: PreTrainedTokenizer,
+        # model,
+        # tokenizer,
         token_weighter: TokenWeighter = None,
     ):
         """Generate rhymes.
@@ -54,6 +67,7 @@ class RhymeGenerator:
         tokenized_rhymes = [
             self._initialize_rhymes(query, rhyme_word) for rhyme_word in rhyme_words
         ]
+        print(tokenized_rhymes)
         # Make same length.
         self.tokenized_rhymes_ = tf.keras.preprocessing.sequence.pad_sequences(
             tokenized_rhymes, padding="post", value=self.tokenizer.pad_token_id
@@ -91,7 +105,7 @@ class RhymeGenerator:
         magic_correction = len(rhyme_word_token_ids) + 1  # 1 for comma
         return (
             query_token_ids
-            + [self.tokenizer.mask_token_id] * (len(query_token_ids) - magic_correction)
+            + [self.tokenizer.mask_token_id] * (len(query.split(' ')) - 1)
             + rhyme_word_token_ids
             + [self.period_token_id]
         )

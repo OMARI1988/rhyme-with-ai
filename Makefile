@@ -90,16 +90,18 @@ install: clean ## install the package to the active Python's site-packages
 	python setup.py install
 
 download-data:
-	mkdir -p data/bert-large-cased-whole-word-masking-finetuned-squad
+	mkdir -p data/bert-large-cased-whole-word-masking
 	curl \
-		-o data/bert-large-cased-whole-word-masking-finetuned-squad/config.json \
+		-o data/bert-large-cased-whole-word-masking/config.json \
 		https://s3.amazonaws.com/models.huggingface.co/bert/bert-large-cased-whole-word-masking-config.json
 	curl \
-		-o data/bert-large-cased-whole-word-masking-finetuned-squad/vocab.txt \
+		-o data/bert-large-cased-whole-word-masking/vocab.txt \
 		https://s3.amazonaws.com/models.huggingface.co/bert/bert-large-cased-whole-word-masking-vocab.txt
 	curl \
-		-o data/bert-large-cased-whole-word-masking-finetuned-squad/tf_model.h5 \
-		https://cdn.huggingface.co/bert-large-cased-whole-word-masking-finetuned-squad-tf_model.h5
+		-o data/bert-large-cased-whole-word-masking/tf_model.h5 \
+		https://s3.amazonaws.com/models.huggingface.co/bert/bert-large-cased-whole-word-masking-tf_model.h5
+		# -o data/bert-large-cased-whole-word-masking-finetuned-squad/tf_model.h5 \
+		# https://cdn.huggingface.co/bert-large-cased-whole-word-masking-finetuned-squad-tf_model.h5
 	mkdir -p data/wietsedv/bert-base-dutch-cased
 	curl \
         -o data/wietsedv/bert-base-dutch-cased/config.json \
